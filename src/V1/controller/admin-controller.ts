@@ -35,7 +35,6 @@ class AdminController {
       const { limit = "50" } = req.query as Record<string, string>;
       const range = normalizeHistoryRange(req.query.range as string | undefined);
       const result = await adminService.getSalesHistory(range, parseInt(limit));
-      console.log(result)
       res.json(successResponse("sales history", result));
     } catch (err: unknown) {
       if (err instanceof Error) next(createError(err.message, 400));

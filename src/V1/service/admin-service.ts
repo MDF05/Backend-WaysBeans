@@ -65,17 +65,17 @@ class AdminService {
   }
 
   async getSalesHistory(range: RangeKey, limit: number) {
-    // basic list of latest transactions including product details
+    // basic list of latest transactions including product and buyer details
     const transactions = await prisma.transaction.findMany({
       orderBy: { createdAt: "desc" },
       take: limit,
       include: {
         product: true,
-        profile: true,
+        profile: {
+          include: { user: true },
+        },
       },
     });
-
-    
 
     return transactions.map((t) => ({
       id: t.id,
@@ -84,6 +84,13 @@ class AdminService {
       qty: t.countItem ?? 1,
       amount: t.gross_amount,
       buyerProfileId: t.profileId,
+      buyer: {
+        id: t.profile?.userId,
+        name: t.profile?.name,
+        email: t.profile?.user?.email,
+        phone: t.profile?.phone,
+        address: t.profile?.address,
+      },
     }));
   }
 }
