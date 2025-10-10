@@ -5,6 +5,10 @@ import { ProductDTO } from "./../DTO/product-DTO";
 class ProductRepository {
   async post(productDTO: ProductDTO): Promise<Product> {
     const { images, profileId, ...otherProductDto } = productDTO;
+    console.log(otherProductDto)
+    console.log(profileId)
+    console.log(images)
+
     return await prisma.product.create({
       data: {
         ...otherProductDto,

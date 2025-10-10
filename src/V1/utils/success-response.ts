@@ -4,7 +4,7 @@ export default function successResponse(message: string, content: object, status
     return {
         succes: true,
         author: "MUHAMMAD DAVA FAHREZA",
-        aplication: "DUMBMERCH",
+        aplication: "WaysBeans",
         version: process.env.version,
         message,
         date: new Date(),

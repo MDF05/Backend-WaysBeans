@@ -13,7 +13,7 @@ export default function errorResponse(err: CustomError, req: Request, res: Respo
     return res.status(status).json({
         succes,
         author: "MUHAMMAD DAVA FAHREZA",
-        aplication: "DUMBMERCH",
+        aplication: "WaysBeans",
         version: process.env.version,
         message,
         date: new Date(),
