@@ -54,11 +54,19 @@ class AdminService {
         buckets.push({ label: `W${i + 1}`, start: s, end: e });
       }
     } else if (range === "monthly") {
-      const year = now.getFullYear();
-      for (let m = 0; m < 12; m++) {
-        const s = new Date(year, m, 1);
-        const e = new Date(year, m + 1, 1);
-        buckets.push({ label: s.toLocaleDateString("en-US", { month: "short" }), start: s, end: e });
+      // Show daily data for the current month
+      const currentMonth = now.getMonth();
+      const currentYear = now.getFullYear();
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(currentYear, currentMonth, day);
+        const nextDay = new Date(currentYear, currentMonth, day + 1);
+        buckets.push({ 
+          label: date.toLocaleDateString("en-US", { day: "2-digit" }), 
+          start: date, 
+          end: nextDay 
+        });
       }
     } else {
       const currentYear = now.getFullYear();
